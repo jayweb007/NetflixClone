@@ -8,7 +8,7 @@ import {
 } from "@expo/vector-icons";
 import { getStatusBarHeight } from "react-native-status-bar-height";
 import movie from "../assets/data/movie";
-import React from "react";
+import { Picker } from "@react-native-picker/picker";
 import EpisodeItem from "../components/Home/EpisodeItem";
 
 //
@@ -18,6 +18,9 @@ const firstSeason = movie.seasons.items[0];
 const firstEpisode = firstSeason.episodes.items[0];
 //
 const MovieDetailsScreen = () => {
+  const seasonNames = movie.seasons.items.map((season) => season.name);
+
+  //
   return (
     <View style={styles.container}>
       <Image style={styles.image} source={{ uri: firstEpisode.poster }} />
@@ -222,6 +225,20 @@ const MovieDetailsScreen = () => {
                 MORE LIKE THIS
               </Text>
             </View>
+
+            <Picker
+              style={{ color: "white" }}
+              selectedValue={"a"}
+              onValueChange={(itemValue, itemIndex) => {}}
+            >
+              {seasonNames.map((seasonName) => (
+                <Picker.Item
+                  label={seasonName}
+                  value={seasonName}
+                  key={seasonName}
+                />
+              ))}
+            </Picker>
           </View>
         }
       />
