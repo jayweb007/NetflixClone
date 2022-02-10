@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Image,
   TouchableOpacity,
@@ -18,12 +19,13 @@ import { Picker } from "@react-native-picker/picker";
 import EpisodeItem from "../components/Home/EpisodeItem";
 
 //
-//
 const statusBarHeight = getStatusBarHeight();
+//
 const firstSeason = movie.seasons.items[0];
 const firstEpisode = firstSeason.episodes.items[0];
 //
 const MovieDetailsScreen = () => {
+  const [currentSeason, setCurrentSeason] = useState(firstSeason);
   const seasonNames = movie.seasons.items.map((season) => season.name);
 
   //
@@ -32,7 +34,7 @@ const MovieDetailsScreen = () => {
       <Image style={styles.image} source={{ uri: firstEpisode.poster }} />
 
       <FlatList
-        data={firstSeason.episodes.items}
+        data={currentSeason.episodes.items}
         renderItem={({ item }) => <EpisodeItem episode={item} />}
         style={{ marginBottom: "auto" }}
         ListHeaderComponent={
@@ -252,8 +254,10 @@ const MovieDetailsScreen = () => {
               }
               itemStyle={{ color: "blue" }}
               mode="dropdown"
-              selectedValue={"a"}
-              onValueChange={(itemValue, itemIndex) => {}}
+              selectedValue={currentSeason.name}
+              onValueChange={(itemValue, itemIndex) => {
+                setCurrentSeason(movie.seasons.items[itemIndex]);
+              }}
             >
               {seasonNames.map((seasonName) => (
                 <Picker.Item
