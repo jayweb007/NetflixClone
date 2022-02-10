@@ -11,9 +11,6 @@ const statusBarHeight = getStatusBarHeight();
 const HomeScreen = () => {
   return (
     <View style={styles.container}>
-      {/* List of Categories */}
-      {/* <HomeCategory category={firstCategory} /> */}
-
       <FlatList
         data={categories.items}
         showsVerticalScrollIndicator={false}

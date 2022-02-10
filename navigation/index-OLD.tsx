@@ -31,7 +31,6 @@ import {
   RootTabParamList,
   RootTabScreenProps,
   HomeParamList,
-  HomeStackScreenProps,
   TabTwoParamList,
 } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
@@ -98,7 +97,7 @@ function BottomTabNavigator() {
         name="Home"
         component={HomeNavigator}
         options={({ navigation }: RootTabScreenProps<"Home">) => ({
-          headerShown: false,
+          // headerShown: false,
           title: "Home",
           tabBarIcon: ({ color }) => (
             <AntDesign name="home" size={24} color={color} />
@@ -165,32 +164,15 @@ function HomeNavigator() {
       <HomeStack.Screen
         name="HomeScreen"
         component={HomeScreen}
-        options={{ headerShown: false, title: "Home" }}
+        options={{ headerShown: false }}
       />
       <HomeStack.Screen
         name="MovieDetailsScreen"
         component={MovieDetailsScreen}
-        options={({
-          navigation,
-        }: HomeStackScreenProps<"MovieDetailsScreen">) => ({
-          // headerShown: false,
-          title: " ",
-          headerRight: () => (
-            <Pressable
-              onPress={() => navigation.navigate("Modal")}
-              style={({ pressed }) => ({
-                opacity: pressed ? 0.5 : 1,
-              })}
-            >
-              <FontAwesome
-                name="info-circle"
-                size={25}
-                color={"#fff"}
-                style={{ marginRight: 15 }}
-              />
-            </Pressable>
-          ),
-        })}
+        options={{
+          headerShown: false,
+          title: "MovieDetailsScreen",
+        }}
       />
     </HomeStack.Navigator>
   );
