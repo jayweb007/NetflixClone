@@ -1,24 +1,22 @@
-import { Image, StyleSheet } from "react-native";
+import { Image, Pressable, StyleSheet } from "react-native";
 import { Text, View } from "../Themed";
 import React from "react";
 import { AntDesign } from "@expo/vector-icons";
+import { Episode } from "../../types";
 
 //
 //
 interface EpisodeItemProps {
-  episode: {
-    id: string;
-    title: string;
-    poster: string;
-    duration: string;
-    plot: string;
-    video: string;
-  };
+  episode: Episode;
+  onPress: (eppisode: Episode) => {};
 }
 const EpisodeItem = (props: EpisodeItemProps) => {
-  const { episode } = props;
+  const { episode, onPress } = props;
   return (
-    <View style={{ paddingHorizontal: 10 }}>
+    <Pressable
+      style={{ paddingHorizontal: 10 }}
+      onPress={() => onPress(episode)}
+    >
       <View
         style={{
           flexDirection: "row",
@@ -61,7 +59,7 @@ const EpisodeItem = (props: EpisodeItemProps) => {
       >
         {episode.plot}
       </Text>
-    </View>
+    </Pressable>
   );
 };
 

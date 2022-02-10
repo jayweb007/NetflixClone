@@ -17,6 +17,7 @@ import { getStatusBarHeight } from "react-native-status-bar-height";
 import movie from "../assets/data/movie";
 import { Picker } from "@react-native-picker/picker";
 import EpisodeItem from "../components/Home/EpisodeItem";
+import VideoPlayer from "../components/Home/VideoPlayer";
 
 //
 const statusBarHeight = getStatusBarHeight();
@@ -26,16 +27,21 @@ const firstEpisode = firstSeason.episodes.items[0];
 //
 const MovieDetailsScreen = () => {
   const [currentSeason, setCurrentSeason] = useState(firstSeason);
+  const [currentEpisode, setCurrentEpisode] = useState(
+    firstSeason.episodes.items[0]
+  );
   const seasonNames = movie.seasons.items.map((season) => season.name);
 
   //
   return (
     <View style={styles.container}>
-      <Image style={styles.image} source={{ uri: firstEpisode.poster }} />
+      <VideoPlayer episode={currentEpisode} />
 
       <FlatList
         data={currentSeason.episodes.items}
-        renderItem={({ item }) => <EpisodeItem episode={item} />}
+        renderItem={({ item }) => (
+          <EpisodeItem episode={item} onPress={setCurrentEpisode} />
+        )}
         style={{ marginBottom: "auto" }}
         ListHeaderComponent={
           <View style={{ marginHorizontal: 10 }}>
@@ -238,10 +244,10 @@ const MovieDetailsScreen = () => {
               style={
                 Platform.OS === "android"
                   ? {
-                      color: "black",
-                      backgroundColor: "white",
+                      color: "#fff",
+                      backgroundColor: "#3d3c3c",
                       height: 50,
-                      width: 150,
+                      width: 130,
                       marginTop: 15,
                     }
                   : {
@@ -258,6 +264,7 @@ const MovieDetailsScreen = () => {
               onValueChange={(itemValue, itemIndex) => {
                 setCurrentSeason(movie.seasons.items[itemIndex]);
               }}
+              dropdownIconColor={"#fff"}
             >
               {seasonNames.map((seasonName) => (
                 <Picker.Item
