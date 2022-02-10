@@ -1,4 +1,10 @@
-import { Image, TouchableOpacity, StyleSheet, FlatList } from "react-native";
+import {
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+  FlatList,
+  Platform,
+} from "react-native";
 import { Text, View } from "../components/Themed";
 import {
   AntDesign,
@@ -227,7 +233,25 @@ const MovieDetailsScreen = () => {
             </View>
 
             <Picker
-              style={{ color: "white" }}
+              style={
+                Platform.OS === "android"
+                  ? {
+                      color: "black",
+                      backgroundColor: "white",
+                      height: 50,
+                      width: 150,
+                      marginTop: 15,
+                    }
+                  : {
+                      backgroundColor: "grey",
+                      height: 150,
+                      textAlign: "left",
+                      width: "40%",
+                      color: "#fff",
+                    }
+              }
+              itemStyle={{ color: "blue" }}
+              mode="dropdown"
               selectedValue={"a"}
               onValueChange={(itemValue, itemIndex) => {}}
             >
